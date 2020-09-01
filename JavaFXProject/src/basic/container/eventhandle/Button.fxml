@@ -13,7 +13,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
-	prefHeight="150" prefWidth="420"
+	prefHeight="150" prefWidth="420" fx:controller="basic.control.ButtonController"
 	>
 	<padding>
 		<Insets bottom="10" left="10" right="10" top="10" />
@@ -26,8 +26,8 @@
 				<VBox prefHeight="100" prefWidth="100" spacing="20"
 					alignment="CENTER_LEFT">
 					<children>
-						<CheckBox fx:id="chk1" text="안경" />
-						<CheckBox fx:id="chk2" text="모자" />
+						<CheckBox fx:id="chk1" text="안경" onAction="#handleChkAction" />
+						<CheckBox fx:id="chk2" text="모자" onAction="#handleChkAction" />
 					</children>
 				</VBox>
 				<ImageView  fx:id="checkImageView" fitWidth="100" preserveRatio="true">
@@ -35,7 +35,7 @@
 				</ImageView>
 				
 				<Separator  orientation="VERTICAL" prefHeight="100"/>
-				
+				<fx:define><ToggleGroup fx:id="group" /></fx:define>
 				<VBox prefHeight="100" prefWidth="150" spacing="20" alignment="CENTER_LEFT">
 					<children>
 						<RadioButton  fx:id="rad1" text="BubbleChart" userData="BubbleChart" toggleGroup="$group" />
