@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="180" prefWidth="500">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="180" prefWidth="500" fx:controller="basic.control.ViewController">
 <children>
 	<Label  layoutX="11" layoutY="9" text="ListView" />
 	<ListView  fx:id="listView" layoutX="10" layoutY="30" prefHeight="100" prefWidth="100" />
