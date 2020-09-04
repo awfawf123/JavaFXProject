@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="basic.example.RootController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="basic.example.RootController2">
 	<center>
-		<TableView fx:id="tableView" prefWidth="420" prefHeight="200" >
+		<TableView fx:id="tableView" prefWidth="500" prefHeight="200" >
 			<columns>
+				<TableColumn prefWidth="100" resizable="false" text="Id" />
 				<TableColumn prefWidth="100" resizable="false" text="Name" />
 				<TableColumn prefWidth="100" resizable="false" text="Korean" />
 				<TableColumn prefWidth="100" resizable="false" text="Math" />
