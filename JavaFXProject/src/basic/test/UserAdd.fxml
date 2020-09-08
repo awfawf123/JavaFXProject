@@ -4,38 +4,51 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 
 <BorderPane prefHeight="217.0" prefWidth="211.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <GridPane BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints />
-          <ColumnConstraints />
-        </columnConstraints>
-        <rowConstraints>
+	<padding>
+		<Insets  topRightBottomLeft="20" />
+	</padding>
+	<center>
+		<GridPane  hgap="10" vgap="10" BorderPane.alignment="CENTER">
+   <children>
+   			<Label  prefWidth="50" text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+   			<Label prefWidth="50" text="Email" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+   			<Label prefWidth="50" text="Number" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+   			<Label prefWidth="50" text="Age" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+   			<TextField  id="txtName" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+   			<TextField id="txtEmail" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   			<TextField id="txtNumber" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   			<TextField id="txtAge" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+   </children>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
             <RowConstraints />
-          <RowConstraints />
-          <RowConstraints />
-          <RowConstraints />
-        </rowConstraints>
-         <children>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="70.0" text="이메일" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="70.0" text="연락처" GridPane.rowIndex="2" />
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="70.0" text="나이" GridPane.rowIndex="3" />
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="70.0" text="이름" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-   </center>
-   <bottom>
-      <HBox prefHeight="24.0" prefWidth="123.0" spacing="20" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnFormAdd" text="추가" />
-            <Button fx:id="btnFormCancel" text="취소" />
-         </children>
-      </HBox>
-   </bottom>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+		</GridPane>
+	</center>
+	<bottom>
+		<HBox  prefHeight="24.0" prefWidth="123.0" spacing="20" BorderPane.alignment="CENTER">
+			<BorderPane.margin>
+				<Insets topRightBottomLeft="10" />
+			</BorderPane.margin>
+			<children>
+				<Button  id="btnFormAdd" text="Save" />
+				<Button id="btnFormCancel" text="Cancel" />
+			</children>
+		</HBox>
+	</bottom>
 </BorderPane>
