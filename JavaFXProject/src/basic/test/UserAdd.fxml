@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="217.0" prefWidth="211.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints />
+          <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+          <RowConstraints />
+          <RowConstraints />
+          <RowConstraints />
+        </rowConstraints>
+         <children>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="70.0" text="이메일" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="70.0" text="연락처" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="70.0" text="나이" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="70.0" text="이름" />
+            <TextField GridPane.columnIndex="1" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </center>
+   <bottom>
+      <HBox prefHeight="24.0" prefWidth="123.0" spacing="20" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnFormAdd" text="추가" />
+            <Button fx:id="btnFormCancel" text="취소" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

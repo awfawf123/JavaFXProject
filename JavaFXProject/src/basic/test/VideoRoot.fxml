@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="560.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basic.test.Controller">
+   <bottom>
+      <HBox prefHeight="22.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="173.0" text="Search" />
+            <Button fx:id="btnAdd" mnemonicParsing="false" prefHeight="23.0" prefWidth="157.0" text="Add" />
+            <Button fx:id="btnUserList" mnemonicParsing="false" prefHeight="23.0" prefWidth="144.0" text="UserList" />
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <TableView fx:id="tableView" prefHeight="279.0" prefWidth="474.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn prefWidth="152.0" text="제목" />
+          <TableColumn prefWidth="173.0" text="감독" />
+            <TableColumn prefWidth="148.0" text="가격" />
+        </columns>
+      </TableView>
+   </top>
+   <center>
+      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+            <TableColumn prefWidth="109.0" text="이름" />
+            <TableColumn prefWidth="120.0" text="이메일" />
+          <TableColumn prefWidth="127.0" text="연락처" />
+          <TableColumn prefWidth="117.0" text="나이" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
