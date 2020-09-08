@@ -87,6 +87,7 @@ public class RootController implements Initializable {
 				if(event.getClickCount()==2) {
 					String selectedName = tableView.getSelectionModel().getSelectedItem().getName();
 					handleDoubleClickAction(selectedName);
+					
 				}
 				
 			}
@@ -184,6 +185,7 @@ public class RootController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 		
+		
 	}
 	
 	public void handleBtnChartAction() {
@@ -255,7 +257,7 @@ public class RootController implements Initializable {
 			BorderPane borderPane = FXMLLoader.load(getClass().getResource("AddForm.fxml"));
 			Scene scene = new Scene(borderPane);
 			stage.setScene(scene);
-			stage.show();
+			stage.show(); 
 			//추가화면의 컨트롤 사용하기
 			Button btnFormAdd = (Button) borderPane.lookup("#btnFormAdd");
 			btnFormAdd.setOnAction(new EventHandler<ActionEvent>() {
