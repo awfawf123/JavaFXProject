@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -22,13 +24,25 @@
             <Label alignment="CENTER" prefHeight="38.0" prefWidth="208.0" text="책제목" />
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="206.0" text="가격" GridPane.rowIndex="2" />
             <Label alignment="CENTER" prefHeight="48.0" prefWidth="209.0" text="감독" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField prefHeight="31.0" prefWidth="269.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtTitle" prefHeight="34.0" prefWidth="259.0" promptText="책제목을 입력하세요" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtDirector" prefHeight="31.0" prefWidth="269.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtPrice" prefHeight="33.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin></TextField>
          </children>
       </GridPane>
    </center>
    <bottom>
-      <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="90.0" text="조회" BorderPane.alignment="CENTER" />
+      <Button fx:id="btns" mnemonicParsing="false" prefHeight="43.0" prefWidth="90.0" text="조회" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin></Button>
    </bottom>
 </BorderPane>
