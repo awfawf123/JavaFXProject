@@ -9,7 +9,7 @@
    <bottom>
       <HBox prefHeight="22.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="173.0" text="Search" />
+            <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="23.0" prefWidth="173.0" text="Search" />
             <Button fx:id="btnAdd" mnemonicParsing="false" prefHeight="23.0" prefWidth="157.0" text="Add" />
             <Button fx:id="btnUserList" mnemonicParsing="false" prefHeight="23.0" prefWidth="144.0" text="UserList" />
          </children>
@@ -25,7 +25,7 @@
       </TableView>
    </top>
    <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView1" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
             <TableColumn prefWidth="109.0" text="이름" />
             <TableColumn prefWidth="120.0" text="이메일" />

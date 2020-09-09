@@ -29,14 +29,17 @@ public class Controller implements Initializable {
 	@FXML
 	TableView<Video> tableView;
 	@FXML
-	Button btnAdd;
+	TableView<Users> tableView1;
+	@FXML
+	Button btnAdd, btnUserList, btnSearch;
 
 	ObservableList<Video> list;
+	ObservableList<Users> list1;
 	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		//Video
 		TableColumn<Video, ?> tc = tableView.getColumns().get(0);
 		tc.setCellValueFactory(new PropertyValueFactory<>("title"));
 
@@ -45,16 +48,74 @@ public class Controller implements Initializable {
 
 		tc = tableView.getColumns().get(2);
 		tc.setCellValueFactory(new PropertyValueFactory<>("price"));
+		
+		//Users
+		TableColumn<Users, ?> tc1 = tableView1.getColumns().get(0);
+		tc1.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+		tc1 = tableView1.getColumns().get(1);
+		tc1.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+		tc1 = tableView1.getColumns().get(2);
+		tc1.setCellValueFactory(new PropertyValueFactory<>("number"));
+		
+		tc1 = tableView1.getColumns().get(3);
+		tc1.setCellValueFactory(new PropertyValueFactory<>("age"));
+		
+		list1 = FXCollections.observableArrayList();
 		list = FXCollections.observableArrayList();
 		
 
 		tableView.setItems(list);
+		tableView1.setItems(list1);
+		
 
 		btnAdd.setOnAction(event -> {
 			handleBtnAddAction();
 
 		});
+		
+		btnUserList.setOnAction(event ->{
+			handleBtnUserListAction();
+		});
+
+	}
+	public void handleBtnUserListAction() {
+		Stage stage = new Stage(StageStyle.UTILITY);
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner(btnUserList.getScene().getWindow());
+
+		try {
+			Parent parent = FXMLLoader.load(getClass().getResource("UserAdd.fxml"));
+
+			Scene scene = new Scene(parent);
+			stage.setScene(scene);
+			stage.show();
+			
+			
+
+			Button btnFormAdd = (Button) parent.lookup("#btnFormAdd");
+			btnFormAdd.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					TextField txtName = (TextField) parent.lookup("#txtName");
+					TextField txtEmail = (TextField) parent.lookup("#txtEmail");
+					TextField txtNumber = (TextField) parent.lookup("#txtNumber");
+					TextField txtAge = (TextField) parent.lookup("#txtAge");
+					Users user = new Users(txtName.getText(),txtEmail.getText(),
+							txtNumber.getText(),
+							Integer.parseInt(txtAge.getText()));
+
+					list1.add(user);
+
+					stage.close();
+				}
+			});
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
