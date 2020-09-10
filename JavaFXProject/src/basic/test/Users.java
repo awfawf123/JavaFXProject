@@ -6,13 +6,13 @@ import javafx.beans.property.SimpleStringProperty;
 public class Users {
 	private SimpleStringProperty name;
 	private SimpleStringProperty email;
-	private SimpleStringProperty number;
+	private SimpleStringProperty phonenumber;
 	private SimpleIntegerProperty age;
 	
-	public Users(String name, String email, String number, int age) {
+	public Users(String name, String email, String phonenumber, int age) {
 		this.name = new SimpleStringProperty(name);
 		this.email = new SimpleStringProperty(email);
-		this.number = new SimpleStringProperty(number);
+		this.phonenumber = new SimpleStringProperty(phonenumber);
 		this.age = new SimpleIntegerProperty(age);
 	}
 	
@@ -31,11 +31,11 @@ public class Users {
 	}
 	
 	
-	public String getNumber() {
-		return this.number.get();
+	public String getPhoneNumber() {
+		return this.phonenumber.get();
 	}
-	public void setNumber(String number) {
-		this.number.set(number);
+	public void setPhoneNumber(String phonenumber) {
+		this.phonenumber.set(phonenumber);
 	}
 	
 	

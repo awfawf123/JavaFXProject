@@ -14,6 +14,10 @@ public class Video {
 		this.director = new SimpleStringProperty(director);
 	}
 	
+	
+	
+	
+	
 	public String getTitle() {
 		return this.title.get();
 	}

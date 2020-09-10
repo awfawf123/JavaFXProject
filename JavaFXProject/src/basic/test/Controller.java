@@ -2,11 +2,14 @@ package basic.test;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import basic.test.Video;
-import basic.test.*;
-
+import basic.common.ConnectionDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,16 +59,18 @@ public class Controller implements Initializable {
 		tc1.setCellValueFactory(new PropertyValueFactory<>("email"));
 
 		tc1 = tableView1.getColumns().get(2);
-		tc1.setCellValueFactory(new PropertyValueFactory<>("number"));
+		tc1.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
 
 		tc1 = tableView1.getColumns().get(3);
 		tc1.setCellValueFactory(new PropertyValueFactory<>("age"));
+		
+	 
+		
+//		list1 = FXCollections.observableArrayList();
+//		list = FXCollections.observableArrayList();
 
-		list1 = FXCollections.observableArrayList();
-		list = FXCollections.observableArrayList();
-
-		tableView.setItems(list);
-		tableView1.setItems(list1);
+		tableView.setItems(VideoDAO.VideoList());
+		tableView1.setItems(UserDAO.UserList());
 
 		btnAdd.setOnAction(event -> {
 			handleBtnAddAction();
@@ -80,7 +85,9 @@ public class Controller implements Initializable {
 			handleBtnSearchAction();
 		});
 	}
-
+	
+	
+	//회원 추가
 	public void handleBtnUserListAction() {
 		Stage stage = new Stage(StageStyle.UTILITY);
 		stage.initModality(Modality.WINDOW_MODAL);
@@ -100,13 +107,14 @@ public class Controller implements Initializable {
 				public void handle(ActionEvent arg0) {
 					TextField txtName = (TextField) parent.lookup("#txtName");
 					TextField txtEmail = (TextField) parent.lookup("#txtEmail");
-					TextField txtNumber = (TextField) parent.lookup("#txtNumber");
+					TextField txtPhoneNumber = (TextField) parent.lookup("#txtPhoneNumber");
 					TextField txtAge = (TextField) parent.lookup("#txtAge");
-					Users user = new Users(txtName.getText(), txtEmail.getText(), txtNumber.getText(),
+					Users user = new Users(txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText(),
 							Integer.parseInt(txtAge.getText()));
-
-					list1.add(user);
-
+					UserDAO.insert(txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), txtAge.getText());
+					tableView1.setItems(UserDAO.UserList());
+					
+					
 					stage.close();
 				}
 			});
@@ -116,19 +124,19 @@ public class Controller implements Initializable {
 		}
 
 	}
-
+	//비디오 추가
 	public void handleBtnAddAction() {
+		
 		Stage stage = new Stage(StageStyle.UTILITY);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(btnAdd.getScene().getWindow());
 
 		try {
 			Parent parent = FXMLLoader.load(getClass().getResource("VideoAdd.fxml"));
-
 			Scene scene = new Scene(parent);
 			stage.setScene(scene);
 			stage.show();
-
+			
 			Button btnFormAdd = (Button) parent.lookup("#btnFormAdd");
 			btnFormAdd.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -139,9 +147,11 @@ public class Controller implements Initializable {
 					TextField txtPrice = (TextField) parent.lookup("#txtPrice");
 					Video video = new Video(txtTitle.getText(), txtDirector.getText(),
 							Integer.parseInt(txtPrice.getText()));
-
-					list.add(video);
-
+					VideoDAO.insert(txtTitle.getText(), txtDirector.getText(), txtPrice.getText());
+					
+//					list.add(video);
+					
+					tableView.setItems(VideoDAO.VideoList());
 					stage.close();
 				}
 			});
@@ -150,19 +160,20 @@ public class Controller implements Initializable {
 		}
 
 	}
-
+	
+	//조회
 	public void handleBtnSearchAction() {
 		Stage stage = new Stage(StageStyle.UTILITY);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(btnSearch.getScene().getWindow());
-
+		list=VideoDAO.VideoList();
 		try {
 			Parent parent = FXMLLoader.load(getClass().getResource("Search.fxml"));
 
 			Scene scene = new Scene(parent);
 			stage.setScene(scene);
 			stage.show();
-
+			
 			Button btns = (Button) parent.lookup("#btns");
 			btns.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -171,11 +182,13 @@ public class Controller implements Initializable {
 					TextField txtTitle = (TextField) parent.lookup("#txtTitle");
 					TextField txtDirector = (TextField) parent.lookup("#txtDirector");
 					TextField txtPrice = (TextField) parent.lookup("#txtPrice");
-
-					for (Video vi : list) {
-						if (vi.getTitle().equals(txtTitle.getText())) {
-							txtDirector.setText(vi.getDirector());
-							txtPrice.setText(String.valueOf(vi.getPrice()));
+					
+	
+					for (Video vid : list) {
+						if (vid.getTitle().equals(txtTitle.getText())) {
+							txtDirector.setText(vid.getDirector());
+							txtPrice.setText(String.valueOf(vid.getPrice()));
+							
 						}
 					}
 
@@ -187,5 +200,16 @@ public class Controller implements Initializable {
 		}
 
 	}
+	
+	
+	
 
+	
+	
+
+		 
+		    
+		       
 }
+
+

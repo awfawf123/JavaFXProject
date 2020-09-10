@@ -22,11 +22,11 @@
    <children>
    			<Label prefWidth="50" text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
    			<Label prefWidth="50" text="Email" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-   			<Label prefWidth="50" text="Number" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+   			<Label prefWidth="50" text="PhoneNumber" GridPane.columnIndex="0" GridPane.rowIndex="2" />
    			<Label prefWidth="50" text="Age" GridPane.columnIndex="0" GridPane.rowIndex="3" />
    			<TextField id="txtName" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="0" />
    			<TextField id="txtEmail" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-   			<TextField id="txtNumber" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   			<TextField id="txtPhoneNumber" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    			<TextField id="txtAge" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
          <columnConstraints>
