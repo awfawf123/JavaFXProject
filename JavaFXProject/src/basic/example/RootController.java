@@ -149,7 +149,7 @@ public class RootController implements Initializable {
 		Button btnUpdate = new Button("수정");
 		btnUpdate.setLayoutX(85);
 		btnUpdate.setLayoutY(184);
-		
+		//수정
 		btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override

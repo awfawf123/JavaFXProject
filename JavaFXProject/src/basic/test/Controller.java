@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import basic.common.ConnectionDB;
+import basic.example.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,10 +21,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -38,6 +43,12 @@ public class Controller implements Initializable {
 
 	ObservableList<Video> list;
 	ObservableList<Users> list1;
+
+	Stage primaryStage;
+
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -59,15 +70,14 @@ public class Controller implements Initializable {
 		tc1.setCellValueFactory(new PropertyValueFactory<>("email"));
 
 		tc1 = tableView1.getColumns().get(2);
-		tc1.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
+		tc1.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
 		tc1 = tableView1.getColumns().get(3);
 		tc1.setCellValueFactory(new PropertyValueFactory<>("age"));
-		
-	 
-		
+
 //		list1 = FXCollections.observableArrayList();
-//		list = FXCollections.observableArrayList();
+		list = FXCollections.observableArrayList();
+		list = VideoDAO.VideoList();
 
 		tableView.setItems(VideoDAO.VideoList());
 		tableView1.setItems(UserDAO.UserList());
@@ -84,10 +94,78 @@ public class Controller implements Initializable {
 		btnSearch.setOnAction(event -> {
 			handleBtnSearchAction();
 		});
+
+		tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println(event);
+				if (event.getClickCount() == 2) {
+					String selectedName = tableView.getSelectionModel().getSelectedItem().getTitle();
+					handleDoubleClickAction(selectedName);
+
+				}
+
+			}
+
+		});
+
 	}
-	
-	
-	//회원 추가
+
+	public void handleDoubleClickAction(String title) {
+		Stage stage = new Stage(StageStyle.UTILITY);
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner(primaryStage);
+
+		try {
+			Parent parent = FXMLLoader.load(getClass().getResource("Update.fxml"));
+
+			Scene scene = new Scene(parent);
+			stage.setScene(scene);
+			stage.show();
+			TextField txtTitle = (TextField) parent.lookup("#txtTitle");
+			TextField txtDirector = (TextField) parent.lookup("#txtDirector");
+			TextField txtPrice = (TextField) parent.lookup("#txtPrice");
+
+			Button btnUpdate = (Button) parent.lookup("#btnUpdate");
+			list = VideoDAO.VideoList();
+			for (Video vid : list) {
+				if (vid.getTitle().equals(title)) {
+					txtTitle.setText(title);
+					txtDirector.setText(vid.getDirector());
+					txtPrice.setText(String.valueOf(vid.getPrice()));
+
+				}
+			}
+			btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+
+					for (int i = 0; i < list.size(); i++) {
+						if (list.get(i).getTitle().equals(title)) {
+						Video video = new Video(title, txtDirector.getText(),
+						Integer.parseInt(txtPrice.getText()));
+						list.set(i,video);
+						VideoDAO.update(list.get(i));
+						tableView.setItems(VideoDAO.VideoList());
+						stage.close();
+
+						}
+					}
+
+
+				}
+
+			});
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	// 회원 추가
 	public void handleBtnUserListAction() {
 		Stage stage = new Stage(StageStyle.UTILITY);
 		stage.initModality(Modality.WINDOW_MODAL);
@@ -113,10 +191,24 @@ public class Controller implements Initializable {
 							Integer.parseInt(txtAge.getText()));
 					UserDAO.insert(txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText(), txtAge.getText());
 					tableView1.setItems(UserDAO.UserList());
-					
-					
+
 					stage.close();
 				}
+			});
+
+			Button btnFormCancel = (Button) parent.lookup("#btnFormCancel");
+			btnFormCancel.setOnAction(e -> {
+				TextField txtName = (TextField) parent.lookup("#txtName");
+				TextField txtEmail = (TextField) parent.lookup("#txtEmail");
+				TextField txtPhoneNumber = (TextField) parent.lookup("#txtPhoneNumber");
+				TextField txtAge = (TextField) parent.lookup("#txtAge");
+
+				txtName.clear();
+				txtEmail.clear();
+				txtPhoneNumber.clear();
+				txtAge.clear();
+
+				stage.close();
 			});
 
 		} catch (IOException e) {
@@ -124,9 +216,10 @@ public class Controller implements Initializable {
 		}
 
 	}
-	//비디오 추가
+
+	// 비디오 추가
 	public void handleBtnAddAction() {
-		
+
 		Stage stage = new Stage(StageStyle.UTILITY);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(btnAdd.getScene().getWindow());
@@ -136,7 +229,7 @@ public class Controller implements Initializable {
 			Scene scene = new Scene(parent);
 			stage.setScene(scene);
 			stage.show();
-			
+
 			Button btnFormAdd = (Button) parent.lookup("#btnFormAdd");
 			btnFormAdd.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -148,32 +241,43 @@ public class Controller implements Initializable {
 					Video video = new Video(txtTitle.getText(), txtDirector.getText(),
 							Integer.parseInt(txtPrice.getText()));
 					VideoDAO.insert(txtTitle.getText(), txtDirector.getText(), txtPrice.getText());
-					
-//					list.add(video);
-					
+
 					tableView.setItems(VideoDAO.VideoList());
 					stage.close();
 				}
 			});
+			Button btnFormCancel = (Button) parent.lookup("#btnFormCancel");
+			btnFormCancel.setOnAction(e -> {
+				TextField txtTitle = (TextField) parent.lookup("#txtTitle");
+				TextField txtDirector = (TextField) parent.lookup("#txtDirector");
+				TextField txtPrice = (TextField) parent.lookup("#txtPrice");
+
+				txtTitle.clear();
+				txtDirector.clear();
+				txtPrice.clear();
+
+				stage.close();
+			});
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
-	//조회
+
+	// 조회
 	public void handleBtnSearchAction() {
 		Stage stage = new Stage(StageStyle.UTILITY);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(btnSearch.getScene().getWindow());
-		list=VideoDAO.VideoList();
+		list = VideoDAO.VideoList();
 		try {
 			Parent parent = FXMLLoader.load(getClass().getResource("Search.fxml"));
 
 			Scene scene = new Scene(parent);
 			stage.setScene(scene);
 			stage.show();
-			
+
 			Button btns = (Button) parent.lookup("#btns");
 			btns.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -182,13 +286,12 @@ public class Controller implements Initializable {
 					TextField txtTitle = (TextField) parent.lookup("#txtTitle");
 					TextField txtDirector = (TextField) parent.lookup("#txtDirector");
 					TextField txtPrice = (TextField) parent.lookup("#txtPrice");
-					
-	
+
 					for (Video vid : list) {
 						if (vid.getTitle().equals(txtTitle.getText())) {
 							txtDirector.setText(vid.getDirector());
 							txtPrice.setText(String.valueOf(vid.getPrice()));
-							
+
 						}
 					}
 
@@ -200,16 +303,5 @@ public class Controller implements Initializable {
 		}
 
 	}
-	
-	
-	
 
-	
-	
-
-		 
-		    
-		       
 }
-
-

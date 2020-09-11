@@ -44,23 +44,24 @@ public class VideoDAO {
 		      }
 		   }
 	
-	static void select(String title, String director, String price) {
-		 Connection conn = ConnectionDB.getDB();
-		 String sql = "select * from VideoList";
-		 try {
+	//수정
+	static void update(Video video) {
+		Connection conn = ConnectionDB.getDB();
+		String sql = "update VideoList set TITLE =?, DIRECTOR = ?, PRICE = ? where TITLE = ?";
+		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				
-			}
-				
-				
-			
-		} catch (SQLException e) {
-			
+			pstmt.setString(1, video.getTitle());
+	         pstmt.setString(2, video.getDirector());
+	         pstmt.setInt(3, video.getPrice());
+	         pstmt.setString(4, video.getTitle());
+	         
+	         pstmt.executeUpdate();
+	         
+		} catch (SQLException e) {	
 			e.printStackTrace();
 		}
 	}
+	
 
 	}
 	
